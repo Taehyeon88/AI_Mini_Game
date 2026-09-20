@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110f6276b3acf9c489721702fefaa334, type: 3}
+  m_Name: RatData
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  _maxHP: 10
+  _moveSpeed: 2.3
+  _attackPower: 5
+  _dropExp: 1
+  _sprites:
+  - {fileID: 19567550, guid: 006b84a8847b6bd479c18c2adabc39ca, type: 3}
+  - {fileID: -1810310453, guid: 006b84a8847b6bd479c18c2adabc39ca, type: 3}
+  _animInterval: 0.25
+  _contactDamageInterval: 0.5
+  _hitFlashDuration: 0.1

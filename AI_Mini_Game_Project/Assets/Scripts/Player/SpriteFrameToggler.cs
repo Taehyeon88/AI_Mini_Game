@@ -21,7 +21,7 @@ public class SpriteFrameToggler : MonoBehaviour
 
     private void Update()
     {
-        if (!_isMoving || _frames == null || _frames.Length < 2)
+        if (_spriteRenderer == null || !_isMoving || _frames == null || _frames.Length < 2)
         {
             return;
         }
@@ -37,6 +37,19 @@ public class SpriteFrameToggler : MonoBehaviour
         _spriteRenderer.sprite = _frames[_frameIndex];
     }
 
+    public void SetFrames(Sprite[] frames, float interval)
+    {
+        _frames = frames;
+        _interval = interval;
+        _timer = 0f;
+        _frameIndex = 0;
+
+        if (_spriteRenderer != null && _frames != null && _frames.Length > 0)
+        {
+            _spriteRenderer.sprite = _frames[0];
+        }
+    }
+
     public void SetMoving(bool isMoving)
     {
         if (_isMoving == isMoving)
@@ -50,7 +63,7 @@ public class SpriteFrameToggler : MonoBehaviour
         {
             _timer = 0f;
             _frameIndex = 0;
-            if (_frames != null && _frames.Length > 0)
+            if (_spriteRenderer != null && _frames != null && _frames.Length > 0)
             {
                 _spriteRenderer.sprite = _frames[0];
             }
