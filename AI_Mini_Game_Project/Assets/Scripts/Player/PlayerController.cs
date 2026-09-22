@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     public int CurrentHP => _currentHP;
     public bool IsAlive => _currentHP > 0;
 
+    public PlayerWeapons Weapons { get; private set; }
+
     // GameManager(§12)·LevelUpPanel(§9)이 아직 없어 여기서는 감지만 하고, 소비는 해당 챕터 구현 시 이 프로퍼티를 폴링한다.
     public bool PauseTogglePressed { get; private set; }
     public bool ConfirmPressed { get; private set; }
@@ -53,6 +55,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         TryGetComponent(out _spriteFrameToggler);
 
         _currentHP = _maxHP;
+
+        Weapons = new PlayerWeapons(transform);
+        Weapons.AddWeapon(WeaponKind.Knife);
+        Weapons.AddWeapon(WeaponKind.Axe);
+        Weapons.AddWeapon(WeaponKind.Spear);
     }
 
     private void Update()
@@ -89,6 +96,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (ConfirmPressed && GameManager.Instance.State == GameState.Title)
         {
             GameManager.Instance.ChangeState(GameState.Playing);
+        }
+
+        if (GameManager.Instance.State == GameState.Playing)
+        {
+            Weapons.Tick(Time.deltaTime);
         }
     }
 

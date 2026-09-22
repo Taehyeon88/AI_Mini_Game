@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ba9ce2cfc259948a50373588f8b6dc, type: 3}
+  m_Name: AxeData
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  _displayName: "\uB3C4\uB07C"
+  _damage: 6
+  _cooldown: 0.5
+  _range: 2.3
+  _projectileCount: 3
+  _projectileSpeed: 0
+  _prefab: {fileID: 4396130127405427708, guid: 4bb6dd1ce864cdc499c6db097eda2003, type: 3}
+  _stageSprites:
+  - {fileID: 21300000, guid: 53dc8e039e15f5f438173232bfbe5a46, type: 3}
+  - {fileID: 21300000, guid: 0f3d81cc667b88147af4e6617c52ac67, type: 3}
+  - {fileID: 21300000, guid: 520492fd40611c54bb3f759d44e6996c, type: 3}
+  _projectileLifetime: 0
+  _upgradeDamageRate: 0.2
+  _upgradeCooldownRate: 0
+  _cooldownFloor: 0
+  _projectileSpreadOffset: 0
+  _pivotAngularSpeed: 120
+  _selfSpinSpeed: 360
+  _orbitRadius: 0
+  _orbitDuration: 0
+  _orbitAngularSpeed: 0
+  _homingTurnRate: 0

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -5,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteFrameToggler))]
 public class Enemy : MonoBehaviour, IDamageable
 {
+    [SerializeField] private Color _hitFlashColor = Color.red;
+
     private SpriteRenderer _spriteRenderer;
     private SpriteFrameToggler _spriteFrameToggler;
 
@@ -12,6 +15,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private PlayerController _player;
     private int _currentHP;
     private float _nextContactDamageTime;
+    private Color _originalColor;
+    private Coroutine _hitFlashCoroutine;
 
     public int MaxHP => _data != null ? _data.MaxHP : 0;
     public int CurrentHP => _currentHP;
@@ -22,6 +27,10 @@ public class Enemy : MonoBehaviour, IDamageable
         if (!TryGetComponent(out _spriteRenderer))
         {
             Debug.LogError($"{nameof(Enemy)} requires a SpriteRenderer.", this);
+        }
+        else
+        {
+            _originalColor = _spriteRenderer.color;
         }
 
         if (!TryGetComponent(out _spriteFrameToggler))
@@ -36,6 +45,13 @@ public class Enemy : MonoBehaviour, IDamageable
         _player = player;
         _currentHP = data.MaxHP;
         _nextContactDamageTime = 0f;
+
+        if (_hitFlashCoroutine != null)
+        {
+            StopCoroutine(_hitFlashCoroutine);
+            _hitFlashCoroutine = null;
+        }
+        _spriteRenderer.color = _originalColor;
 
         _spriteFrameToggler.SetFrames(data.Sprites, data.AnimInterval);
         _spriteFrameToggler.SetMoving(true);
@@ -92,7 +108,22 @@ public class Enemy : MonoBehaviour, IDamageable
         if (!IsAlive)
         {
             Die();
+            return;
         }
+
+        if (_hitFlashCoroutine != null)
+        {
+            StopCoroutine(_hitFlashCoroutine);
+        }
+        _hitFlashCoroutine = StartCoroutine(HitFlashRoutine());
+    }
+
+    private IEnumerator HitFlashRoutine()
+    {
+        _spriteRenderer.color = _hitFlashColor;
+        yield return new WaitForSeconds(_data.HitFlashDuration);
+        _spriteRenderer.color = _originalColor;
+        _hitFlashCoroutine = null;
     }
 
     private void Die()

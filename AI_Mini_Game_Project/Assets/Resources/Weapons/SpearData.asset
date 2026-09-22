@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ba9ce2cfc259948a50373588f8b6dc, type: 3}
+  m_Name: SpearData
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  _displayName: "\uCC3D"
+  _damage: 15
+  _cooldown: 1.5
+  _range: 12.5
+  _projectileCount: 1
+  _projectileSpeed: 15.6
+  _prefab: {fileID: 6285619475472327261, guid: 316aee9fe4e820c45b85408ac3bc0d1e, type: 3}
+  _stageSprites:
+  - {fileID: 21300000, guid: 04bf59deb66f4ce439047f55ae445e7e, type: 3}
+  _projectileLifetime: 3
+  _upgradeDamageRate: 0
+  _upgradeCooldownRate: 0
+  _cooldownFloor: 0
+  _projectileSpreadOffset: 0
+  _pivotAngularSpeed: 0
+  _selfSpinSpeed: 0
+  _orbitRadius: 0.3
+  _orbitDuration: 0.2
+  _orbitAngularSpeed: 540
+  _homingTurnRate: 270

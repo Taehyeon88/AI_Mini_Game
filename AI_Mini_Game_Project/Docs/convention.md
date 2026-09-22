@@ -290,3 +290,16 @@ BossData    : keepDistance(float), keepDistanceDeadzone(float),
 - **적 투사체**(EnemyProjectile = 보스 마법탄): `Player`만 맞힘.
 - `OnTriggerEnter2D`에서 상대 레이어 확인 후 `IDamageable.TakeDamage` 호출. 같은 진영·다른 투사체는 무시.
 - 유도 무기(창)는 발사 후 매 프레임 타겟 방향으로 조향(homing). `PlayerProjectile` — 첫 명중 시 소멸.
+
+## 8. 스프라이트 정렬(Sorting Order, 고정)
+
+> Sorting Layer는 `Default` 하나만 쓴다(신규 레이어 생성 안 함 — 토이 범위). 같은 레이어 안에서 `SpriteRenderer.sortingOrder` 값으로만 위아래를 가른다. 값이 같으면 Unity가 내부적으로(Z거리 등) 타이브레이크하는데 2D에서는 사실상 비결정적이라 겹칠 때 그림이 랜덤하게 위/아래로 갈릴 수 있다 — **겹쳐야 하는 대상끼리는 반드시 값을 다르게 고정**한다.
+
+```
+FloorChunk               : -100
+Player / Enemy / Boss    : 0
+무기(근접·투사체 스프라이트) : 10
+```
+
+- 새 무기 프리팹(AxeBlade·KnifeProjectile 등, `weapon-creation-guide.md` 참고)은 `SpriteRenderer.sortingOrder = 10`으로 만든다 — 항상 캐릭터(Player/Enemy/Boss, 0) 위에 그려지게.
+- Player·Enemy 사이(둘 다 0)는 현재 순서 미정 — 필요해지면 그때 값을 나눈다(§1 "미리 만들지 않기" 원칙).
