@@ -106,11 +106,11 @@ manage_components(action="set_property", target=<Managers instanceID>, search_me
 | EnemyData.asset guid | `a2ce4b61820be604fae126e99d2df234` | `d43e052fa7512e9409ce1887ad394f13` | `01302474ff624e740bbe03756fff35fc` | 씬 파일에서 grep으로 확인할 때 이 guid를 찾을 것(핵심 함정 3) |
 | 등록 위치 | `_stages.Array.data[0]` (start 0, interval 1.5, max 12, pool=[Rat]) | `_stages.Array.data[1]` (start 30, interval 1.0, max 20, pool=[Rat,Bat]) | `_stages.Array.data[2]` (start 75, interval 0.7, max 35, pool=[Rat,Bat,Cyclops]) | stage 추가할 때마다 이전 stage 전부 재입력 필요(핵심 함정 2) |
 
-## 부록: 웨이브 즉시 테스트용 OnGUI 디버거
+## 부록: 웨이브 즉시 테스트용 디버거 창
 
-Play 모드에서 실제 경과 시간을 기다리지 않고 원하는 웨이브를 바로 재현하고 싶으면 `Assets/Scripts/Enemy/WaveDebugger.cs`(클래스 전체 `#if UNITY_EDITOR`로 감싼 MonoBehaviour, 씬의 `WaveDebugger` GameObject에 부착됨)를 사용한다. Game 뷰 좌상단에 stage별 버튼이 뜨고, 클릭하면 `EnemySpawner.DebugForceSpawnStage(index)`가 호출되어:
+Play 모드에서 실제 경과 시간을 기다리지 않고 원하는 웨이브를 바로 재현하고 싶으면 메뉴 `Window > Debug > Wave Debugger`로 에디터 창(`Assets/Scripts/Editor/WaveDebuggerWindow.cs`, 씬 GameObject 불필요·빌드 미포함)을 연다. Game 뷰를 가리지 않는 별도 창에 stage별 버튼이 뜨고, 클릭하면 `EnemySpawner.DebugForceSpawnStage(index)`가 호출되어:
 1. 기존에 떠 있는 적을 전부 정리(`_pool.Release`)하고
 2. 그 stage로 강제 전환(`_debugForcedStageIndex`가 시간 기반 자동 전환을 오버라이드 — 안 그러면 다음 프레임에 실제 `ElapsedTime` 기준으로 원래 stage로 되돌아감)
 3. 그 stage의 동시최대 수만큼 즉시 버스트 스폰 후, 이후에도 그 페이스로 계속 보충 스폰.
 
-`EnemySpawner`에 `StageCount`/`DescribeStage(int)`/`DebugForceSpawnStage(int)` 3개 공개 API가 `#if UNITY_EDITOR`로 추가돼 있음(전부 빌드에는 포함 안 됨). 새 stage를 추가해도 버튼은 `StageCount` 기준으로 자동 늘어나므로 `WaveDebugger.cs`는 수정할 필요 없음.
+`EnemySpawner`에 `StageCount`/`DescribeStage(int)`/`DebugForceSpawnStage(int)` 3개 공개 API가 `#if UNITY_EDITOR`로 추가돼 있음(전부 빌드에는 포함 안 됨). 새 stage를 추가해도 버튼은 `StageCount` 기준으로 자동 늘어나므로 `WaveDebuggerWindow.cs`는 수정할 필요 없음.

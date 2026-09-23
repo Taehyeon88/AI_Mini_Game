@@ -15,7 +15,7 @@ MonoBehaviour:
   _category: 0
   _displayName: "\uB3C4\uB07C \uD68D\uB4DD"
   _description: "\uD68C\uC804\uD558\uB294 \uB3C4\uB07C\uB97C \uC0C8\uB85C \uC5BB\uB294\uB2E4"
-  _icon: {fileID: 21300000, guid: b66149fd0bc4c6047af5d75f9bfd1599, type: 3}
+  _icon: {fileID: 21300000, guid: 47289aaa8d1d4274dbeddd2a75f6e6c2, type: 3}
   _targetWeapon: 1
   _weaponUpgradeType: 0
   _statType: 0

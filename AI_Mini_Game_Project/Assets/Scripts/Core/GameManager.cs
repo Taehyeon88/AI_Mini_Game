@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
 
     public GameState State { get; private set; }
     public float ElapsedTime => _elapsedTime;
+    public float RemainingTime => Mathf.Max(0f, _clearTimeLimitSeconds - _elapsedTime);
     public int KillCount => _killCount;
 
     public event Action<GameState> OnStateChanged;

@@ -15,7 +15,7 @@ MonoBehaviour:
   _category: 2
   _displayName: "\uC774\uB3D9 \uC18D\uB3C4 \uC99D\uAC00"
   _description: "\uC774\uB3D9 \uC18D\uB3C4 +10%"
-  _icon: {fileID: 21300000, guid: 29555045e7cf7f54282fd1a079c8f376, type: 3}
+  _icon: {fileID: 21300000, guid: fe1a485c229852743ab5fb047d7dee3e, type: 3}
   _targetWeapon: 0
   _weaponUpgradeType: 0
   _statType: 1

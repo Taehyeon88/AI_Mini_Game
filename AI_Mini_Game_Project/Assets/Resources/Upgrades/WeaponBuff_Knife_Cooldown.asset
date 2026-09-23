@@ -15,7 +15,7 @@ MonoBehaviour:
   _category: 1
   _displayName: "\uB2E8\uAC80 \uC5F0\uC0AC"
   _description: "\uB2E8\uAC80 \uCFE8\uB2E4\uC6B4 -15%"
-  _icon: {fileID: 21300000, guid: de5af2eaca24df347b090cca30c14ee4, type: 3}
+  _icon: {fileID: 21300000, guid: b66149fd0bc4c6047af5d75f9bfd1599, type: 3}
   _targetWeapon: 0
   _weaponUpgradeType: 1
   _statType: 0

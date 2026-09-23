@@ -16,7 +16,7 @@ MonoBehaviour:
   _displayName: "\uCD5C\uB300 \uCCB4\uB825 \uC99D\uAC00"
   _description: "\uCD5C\uB300 HP +20 (\uD604\uC7AC \uCCB4\uB825\uB3C4 \uD568\uAED8
     \uD68C\uBCF5)"
-  _icon: {fileID: 21300000, guid: 3370461f3e453bd40ae2cfd235a7631c, type: 3}
+  _icon: {fileID: 21300000, guid: 29555045e7cf7f54282fd1a079c8f376, type: 3}
   _targetWeapon: 0
   _weaponUpgradeType: 0
   _statType: 0
