@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public int MaxHP => _data != null ? _data.MaxHP : 0;
     public int CurrentHP => _currentHP;
     public bool IsAlive => _currentHP > 0;
+    public EnemyData Data => _data;
 
     private void Awake()
     {
@@ -129,6 +130,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Die()
     {
         GameManager.Instance.AddKill();
-        PickupManager.Instance.Spawn(transform.position, _data.DropExp);
+        if (_data.DropExp > 0)
+            PickupManager.Instance.Spawn(transform.position, _data.DropExp);
     }
 }

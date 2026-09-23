@@ -203,6 +203,13 @@ void ApplyStat(StatKind type, float amount); // UpgradeService StatBuff 분기�
 - 입력은 **레거시 Input Manager**(`Input.GetAxisRaw`) 가정 — Project Settings ▸ Player ▸ **Active Input Handling = Both**(또는 Old). (신규 Input System 단독이면 `GetAxis` 런타임 에러)
 - 모든 시스템(스포너·무기 Tick·타이머)은 `GameManager.State == Playing`일 때만 진행 (Title/LevelUpPaused/Clear/GameOver에선 정지 — §12).
 
+### EnemySpawner / Enemy 공개 표면 (4-8 보스 유령 소환용)
+```csharp
+Enemy EnemySpawner.SpawnAt(EnemyData data, Vector2 position); // 잡몹 풀에서 지정 위치·데이터로 스폰 (디스폰 폴링 포함). 보스 유령 소환이 호출
+EnemyData Enemy.Data { get; }                                 // 풀 재사용 후 타입 판별용 (보스 유령 상한 카운트)
+```
+- 소환된 유령도 현재 stage의 동시최대(`maxConcurrent`)에 포함된다.
+
 ### ScriptableObject 데이터 형태 (코드↔자산 계약)
 필드 **이름**을 고정해야 `/so-data`로 만든 자산이 코드와 맞물린다. (노출은 `[SerializeField] private` + 프로퍼티)
 

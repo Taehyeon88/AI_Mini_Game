@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8241bbfb3b3a3d445a9a4e7b6f597b1b, type: 3}
+  m_Name: NecBossData
+  m_EditorClassIdentifier: Assembly-CSharp::BossData
+  _keepDistance: 9.4
+  _keepDistanceDeadzone: 1
+  _boltDamage: 15
+  _boltSpeed: 12.5
+  _boltInterval: 2.5
+  _boltLifetime: 3
+  _boltSprite: {fileID: 21300000, guid: 45295cb4cb66fb041ab3628c545ae175, type: 3}
+  _summonInterval: 5
+  _summonMinCount: 2
+  _summonMaxCount: 3
+  _summonCap: 8
+  _summonRadius: 2
+  _ghostData: {fileID: 11400000, guid: 0d1147b680aec28439a7f3b6baa074e5, type: 2}
+  _boltPrefab: {fileID: 3952469275949536084, guid: aa686b698af63d54987dce68d8ca342d, type: 3}

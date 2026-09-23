@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110f6276b3acf9c489721702fefaa334, type: 3}
   m_Name: BatData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  _maxHP: 15
-  _moveSpeed: 4.4
-  _attackPower: 6
+  _maxHP: 22
+  _moveSpeed: 7.9
+  _attackPower: 8
   _dropExp: 2
   _sprites:
   - {fileID: 1749063427, guid: 15759199a8e196a47b95f79bbbc06d72, type: 3}

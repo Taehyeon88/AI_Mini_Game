@@ -19,6 +19,8 @@ public class WaveDebuggerWindow : EditorWindow
 
         DrawWaveSection();
         EditorGUILayout.Space();
+        DrawBossSection();
+        EditorGUILayout.Space();
         DrawUpgradeSection();
     }
 
@@ -40,6 +42,25 @@ public class WaveDebuggerWindow : EditorWindow
                 spawner.DebugForceSpawnStage(i);
             }
         }
+    }
+
+    private void DrawBossSection()
+    {
+        EditorGUILayout.LabelField("Boss", EditorStyles.boldLabel);
+
+        var spawner = FindFirstObjectByType<BossSpawner>();
+        if (spawner == null)
+        {
+            EditorGUILayout.HelpBox("씬에 BossSpawner가 없습니다.", MessageType.Warning);
+            return;
+        }
+
+        EditorGUI.BeginDisabledGroup(spawner.IsBossSpawned);
+        if (GUILayout.Button(spawner.IsBossSpawned ? "보스 소환됨" : "보스 소환", GUILayout.Height(30)))
+        {
+            spawner.DebugForceSpawnBoss();
+        }
+        EditorGUI.EndDisabledGroup();
     }
 
     private void DrawUpgradeSection()

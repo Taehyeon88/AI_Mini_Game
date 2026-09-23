@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 110f6276b3acf9c489721702fefaa334, type: 3}
-  m_Name: CyclopsData
+  m_Name: GhostData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  _maxHP: 60
-  _moveSpeed: 1.8
-  _attackPower: 18
-  _dropExp: 3
+  _maxHP: 20
+  _moveSpeed: 3.1
+  _attackPower: 8
+  _dropExp: 0
   _sprites:
-  - {fileID: 1356467457, guid: 3c0ec379c426a4c4cb23697d1015bdcf, type: 3}
-  - {fileID: -1259590478, guid: 3c0ec379c426a4c4cb23697d1015bdcf, type: 3}
+  - {fileID: 1879778325, guid: f48c39e956265644a824caa55edabc2a, type: 3}
+  - {fileID: -601902203, guid: f48c39e956265644a824caa55edabc2a, type: 3}
   _animInterval: 0.25
   _contactDamageInterval: 0.5
   _hitFlashDuration: 0.1

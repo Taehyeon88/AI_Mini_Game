@@ -100,10 +100,16 @@ public class EnemySpawner : MonoBehaviour
         EnemyData[] pool = _currentStage.EnemyPool;
         EnemyData data = pool[Random.Range(0, pool.Length)];
 
+        SpawnAt(data, GetRandomOffscreenPosition());
+    }
+
+    public Enemy SpawnAt(EnemyData data, Vector2 position)
+    {
         Enemy enemy = _pool.Get();
-        enemy.transform.position = GetRandomOffscreenPosition();
+        enemy.transform.position = position;
         enemy.Init(data, _player);
         _activeEnemies.Add(enemy);
+        return enemy;
     }
 
     private Vector2 GetRandomOffscreenPosition()

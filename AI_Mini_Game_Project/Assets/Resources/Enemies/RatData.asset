@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110f6276b3acf9c489721702fefaa334, type: 3}
   m_Name: RatData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  _maxHP: 10
-  _moveSpeed: 2.3
-  _attackPower: 5
+  _maxHP: 14
+  _moveSpeed: 2.7
+  _attackPower: 6
   _dropExp: 1
   _sprites:
   - {fileID: 19567550, guid: 006b84a8847b6bd479c18c2adabc39ca, type: 3}

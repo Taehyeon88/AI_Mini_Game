@@ -114,3 +114,5 @@ Play 모드에서 실제 경과 시간을 기다리지 않고 원하는 웨이�
 3. 그 stage의 동시최대 수만큼 즉시 버스트 스폰 후, 이후에도 그 페이스로 계속 보충 스폰.
 
 `EnemySpawner`에 `StageCount`/`DescribeStage(int)`/`DebugForceSpawnStage(int)` 3개 공개 API가 `#if UNITY_EDITOR`로 추가돼 있음(전부 빌드에는 포함 안 됨). 새 stage를 추가해도 버튼은 `StageCount` 기준으로 자동 늘어나므로 `WaveDebuggerWindow.cs`는 수정할 필요 없음.
+
+같은 창의 **Boss** 섹션 "보스 소환" 버튼은 120초를 기다리지 않고 `BossSpawner.DebugForceSpawnBoss()`로 보스를 즉시 소환한다(단발 — 소환 후 버튼 비활성, 120초 자동 소환도 중복되지 않음). `BossSpawner`의 `IsBossSpawned`/`DebugForceSpawnBoss()` 역시 `#if UNITY_EDITOR` 전용.
