@@ -129,5 +129,6 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Die()
     {
         GameManager.Instance.AddKill();
+        PickupManager.Instance.Spawn(transform.position, _data.DropExp);
     }
 }

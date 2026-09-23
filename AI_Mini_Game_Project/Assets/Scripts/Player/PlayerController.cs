@@ -18,16 +18,24 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Vector2 _moveInput;
 
     private int _currentHP;
+    private int _currentExp;
+    private int _maxHPBonus;
+    private float _moveSpeedBonusRate;
+    private float _pickupRadiusBonusRate;
     private float _invincibleUntil;
     private Color _originalColor;
     private Coroutine _hitFlashCoroutine;
 
-    public float MoveSpeed => _moveSpeed;
-    public float PickupRadius => _pickupRadius;
+    public float MoveSpeed => _moveSpeed * (1f + _moveSpeedBonusRate);
+    public float PickupRadius => _pickupRadius * (1f + _pickupRadiusBonusRate);
 
-    public int MaxHP => _maxHP;
+    public int MaxHP => _maxHP + _maxHPBonus;
     public int CurrentHP => _currentHP;
     public bool IsAlive => _currentHP > 0;
+
+    public int CurrentLevel { get; private set; } = 1;
+    public int CurrentExp => _currentExp;
+    public int ExpToNext => ExpToNextForLevel(CurrentLevel);
 
     public PlayerWeapons Weapons { get; private set; }
 
@@ -58,8 +66,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         Weapons = new PlayerWeapons(transform);
         Weapons.AddWeapon(WeaponKind.Knife);
-        Weapons.AddWeapon(WeaponKind.Axe);
-        Weapons.AddWeapon(WeaponKind.Spear);
     }
 
     private void Update()
@@ -120,7 +126,69 @@ public class PlayerController : MonoBehaviour, IDamageable
             return;
         }
 
-        _rigidbody2D.linearVelocity = _moveInput * _moveSpeed;
+        _rigidbody2D.linearVelocity = _moveInput * MoveSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (GameManager.Instance.State != GameState.Playing)
+        {
+            return;
+        }
+
+        if (other.TryGetComponent(out IPickup pickup))
+        {
+            pickup.OnPickup(this);
+        }
+    }
+
+    public void AddExp(int amount)
+    {
+        _currentExp += amount;
+
+        bool leveledUp = false;
+        while (_currentExp >= ExpToNext)
+        {
+            _currentExp -= ExpToNext;
+            CurrentLevel++;
+            leveledUp = true;
+        }
+
+        if (leveledUp)
+        {
+            GameManager.Instance.ChangeState(GameState.LevelUpPaused);
+        }
+    }
+
+    public void ApplyStat(StatKind type, float amount)
+    {
+        switch (type)
+        {
+            case StatKind.MaxHP:
+                _maxHPBonus += Mathf.RoundToInt(amount);
+                _currentHP += Mathf.RoundToInt(amount);
+                break;
+            case StatKind.MoveSpeed:
+                _moveSpeedBonusRate += amount;
+                break;
+            case StatKind.PickupRadius:
+                _pickupRadiusBonusRate += amount;
+                break;
+        }
+    }
+
+    // 누적 EXP 표(§6): L2=5, L3=12(+7), L4=22(+10), L5=35(+13), L6=50(+15), L7+=직전+5.
+    private static int ExpToNextForLevel(int level)
+    {
+        switch (level)
+        {
+            case 1: return 5;
+            case 2: return 7;
+            case 3: return 10;
+            case 4: return 13;
+            case 5: return 15;
+            default: return 5 * level - 10; // L6부터: 20, 25, 30 ...
+        }
     }
 
     public void TakeDamage(int amount)
