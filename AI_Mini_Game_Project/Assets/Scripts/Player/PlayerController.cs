@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         _rigidbody2D.linearVelocity = _moveInput * MoveSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (GameManager.Instance.State != GameState.Playing)
         {
