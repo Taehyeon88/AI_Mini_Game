@@ -8,17 +8,7 @@ public class BossSpawner : MonoBehaviour
     [SerializeField] private float _spawnTime = 120f;
     [SerializeField] private float _spawnEdgeMargin = 2f;
 
-    private PlayerController _player;
     private bool _spawned;
-
-    private void Awake()
-    {
-        _player = FindFirstObjectByType<PlayerController>();
-        if (_player == null)
-        {
-            Debug.LogError($"{nameof(BossSpawner)}: PlayerController를 씬에서 찾지 못했습니다.", this);
-        }
-    }
 
     private void Update()
     {
@@ -42,7 +32,7 @@ public class BossSpawner : MonoBehaviour
         Vector2 position = center + new Vector2(0f, _mainCamera.orthographicSize + _spawnEdgeMargin);
 
         BossController boss = Instantiate(_bossPrefab, position, Quaternion.identity);
-        boss.Init(_player, _enemySpawner);
+        boss.Init(GameManager.Instance.Player, _enemySpawner);
         GameManager.Instance.NotifyBossSpawned(boss);
     }
 

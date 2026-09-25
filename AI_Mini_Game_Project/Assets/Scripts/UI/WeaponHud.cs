@@ -6,7 +6,6 @@ public class WeaponHud : MonoBehaviour
 {
     private static readonly WeaponKind[] DisplayedKinds = { WeaponKind.Knife, WeaponKind.Axe, WeaponKind.Spear};
 
-    [SerializeField] private PlayerController _player;
     [SerializeField] private WeaponSlotView _slotPrefab;
 
     private ObjectPool<WeaponSlotView> _pool;
@@ -14,11 +13,6 @@ public class WeaponHud : MonoBehaviour
 
     private void Awake()
     {
-        if (_player == null)
-        {
-            Debug.LogError($"{nameof(WeaponHud)}: _player가 연결되지 않았습니다.", this);
-        }
-
         if (_slotPrefab == null)
         {
             Debug.LogError($"{nameof(WeaponHud)}: _slotPrefab이 연결되지 않았습니다.", this);
@@ -36,14 +30,15 @@ public class WeaponHud : MonoBehaviour
 
     private void Update()
     {
-        if (_player == null || _slotPrefab == null)
+        PlayerController player = GameManager.Instance.Player;
+        if (player == null || _slotPrefab == null)
         {
             return;
         }
 
         foreach (WeaponKind kind in DisplayedKinds)
         {
-            bool owned = _player.Weapons.TryGet(kind, out IWeapon weapon);
+            bool owned = player.Weapons.TryGet(kind, out IWeapon weapon);
             bool hasSlot = _activeSlots.TryGetValue(kind, out WeaponSlotView slot);
 
             if (owned && !hasSlot)

@@ -11,7 +11,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _spawnEdgeMargin = 1f;
     [SerializeField] private float _despawnDistance = 31f;
 
-    private PlayerController _player;
     private ObjectPool<Enemy> _pool;
     private readonly List<Enemy> _activeEnemies = new List<Enemy>();
     private WaveStage _currentStage;
@@ -22,12 +21,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-        _player = FindFirstObjectByType<PlayerController>();
-        if (_player == null)
-        {
-            Debug.LogError($"{nameof(EnemySpawner)}: PlayerController를 씬에서 찾지 못했습니다.", this);
-        }
-
         _pool = new ObjectPool<Enemy>(
             createFunc: () => Instantiate(_enemyPrefab, _enemyParent),
             actionOnGet: e => e.gameObject.SetActive(true),
@@ -107,7 +100,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Enemy enemy = _pool.Get();
         enemy.transform.position = position;
-        enemy.Init(data, _player);
+        enemy.Init(data, GameManager.Instance.Player);
         _activeEnemies.Add(enemy);
         return enemy;
     }

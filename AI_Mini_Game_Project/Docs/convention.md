@@ -96,6 +96,7 @@ using UnityEngine.Pool;
 
 ### (선택) 보류 중인 인프라
 - `GameEvents` 정적 이벤트 허브 — 지금은 GameManager `OnStateChanged` + `OnBossSpawned`(예외) 두 이벤트로 충분. 그 외 알림은 프로퍼티 폴링/`ChangeState`. 구독자 늘면 그때. (이벤트 '호출 vs 발행' 자체는 4-6에서 다룸)
+  - 이 두 이벤트는 `Instance` 생성 순서와 무관하게 구독할 수 있도록 **static**으로 선언한다(§4). 이는 기존 GameManager 소유 이벤트 2개의 접근 방식만 바꾼 것이며, 별도의 `GameEvents` 허브 클래스 신설은 여전히 보류 상태다.
 - `EnemyData`/`WeaponData` 추상 베이스 — `/so-data`로 충분히 일관. 보류.
 
 > 원칙: **제공 코드는 최소로.** 인프라(싱글톤·풀)만 깔고, 게임플레이는 학생이 Claude로 만든다.
@@ -174,9 +175,10 @@ public enum UpgradeCategory { NewWeapon, WeaponBuff, StatBuff }
 GameState State        { get; }
 float     ElapsedTime  { get; }   // 경과 시간(초). 타이머·웨이브·보스 등장(120s) 기준
 int       KillCount    { get; }   // 잡몹·보스 처치 시 +1 (각 적 사망 처리에서 GameManager.AddKill() 호출)
+PlayerController Player { get; } // 씬의 플레이어 참조 (Awake에서 FindFirstObjectByType로 1회 해석) — 스포너·픽업·UI는 이걸로 접근, 직접 FindFirstObjectByType 금지
 
-event System.Action<GameState> OnStateChanged;  // 상태 전환 시 발행 (§12)
-event System.Action<IDamageable> OnBossSpawned; // 보스 등장 시 보스 전달 (UI 보스HP바가 그 보스 HP 폴링·BGM 구독) — 예외로 고정
+static event System.Action<GameState> OnStateChanged;  // 상태 전환 시 발행 (§12) — static, `GameManager.OnStateChanged`로 구독/해제(Instance 불필요)
+static event System.Action<IDamageable> OnBossSpawned; // 보스 등장 시 보스 전달 (UI 보스HP바가 그 보스 HP 폴링·BGM 구독) — static, `GameManager.OnBossSpawned`로 구독/해제 — 예외로 고정
 
 void ChangeState(GameState next);   // 전환은 이 메서드로만
 void AddKill();                     // 처치 수 +1 (잡몹·보스 사망 처리에서 호출)

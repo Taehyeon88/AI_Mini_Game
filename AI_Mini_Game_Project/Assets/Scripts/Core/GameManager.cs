@@ -12,13 +12,26 @@ public class GameManager : Singleton<GameManager>
     public float ElapsedTime => _elapsedTime;
     public float RemainingTime => Mathf.Max(0f, _clearTimeLimitSeconds - _elapsedTime);
     public int KillCount => _killCount;
+    public PlayerController Player { get; private set; }
 
-    public event Action<GameState> OnStateChanged;
-    public event Action<IDamageable> OnBossSpawned;
+    public static event Action<GameState> OnStateChanged;
+    public static event Action<IDamageable> OnBossSpawned;
 
     protected override void Awake()
     {
         base.Awake();
+
+        Player = FindFirstObjectByType<PlayerController>();
+        if (Player == null)
+        {
+            Debug.LogError($"{nameof(GameManager)}: PlayerController를 씬에서 찾지 못했습니다.", this);
+        }
+    }
+
+    private void Start()
+    {
+        // OnStateChanged가 static이라도 최초 발행 시점은 씬의 모든 Awake/OnEnable이 끝난 뒤여야
+        // 구독자(OnEnable에서 구독)가 이 최초 발행을 놓치지 않는다.
         ChangeState(GameState.Title);
     }
 

@@ -6,18 +6,11 @@ public class PickupManager : Singleton<PickupManager>
     [SerializeField] private ExpGem _gemPrefab;
     [SerializeField] private Transform _gemParent;
 
-    private PlayerController _player;
     private ObjectPool<ExpGem> _pool;
 
     protected override void Awake()
     {
         base.Awake();
-
-        _player = FindFirstObjectByType<PlayerController>();
-        if (_player == null)
-        {
-            Debug.LogError($"{nameof(PickupManager)}: PlayerController를 씬에서 찾지 못했습니다.", this);
-        }
 
         _pool = new ObjectPool<ExpGem>(
             createFunc: () => Instantiate(_gemPrefab, _gemParent),
@@ -33,6 +26,6 @@ public class PickupManager : Singleton<PickupManager>
     {
         ExpGem gem = _pool.Get();
         gem.transform.position = position;
-        gem.Init(expAmount, _player, _pool);
+        gem.Init(expAmount, GameManager.Instance.Player, _pool);
     }
 }

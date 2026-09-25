@@ -5,30 +5,14 @@ public class LevelUpPanel : Singleton<LevelUpPanel>
     [SerializeField] private GameObject _panelRoot;
     [SerializeField] private UpgradeCardUI[] _cards;
 
-    private PlayerController _player;
-
-    protected override void Awake()
+    private void OnEnable()
     {
-        base.Awake();
-
-        _player = FindFirstObjectByType<PlayerController>();
-        if (_player == null)
-        {
-            Debug.LogError($"{nameof(LevelUpPanel)}: PlayerController를 씬에서 찾지 못했습니다.", this);
-        }
-    }
-
-    private void Start()
-    {
-        // OnEnable은 다른 오브젝트의 Awake(GameManager.Instance 초기화)보다 먼저 실행될 수 있어
-        // 씬의 모든 Awake가 끝난 뒤 호출이 보장되는 Start에서 구독한다.
-        GameManager.Instance.OnStateChanged += HandleStateChanged;
-        HandleStateChanged(GameManager.Instance.State);
+        GameManager.OnStateChanged += HandleStateChanged;
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.OnStateChanged -= HandleStateChanged;
+        GameManager.OnStateChanged -= HandleStateChanged;
     }
 
     private void HandleStateChanged(GameState state)
@@ -44,7 +28,7 @@ public class LevelUpPanel : Singleton<LevelUpPanel>
 
     private void ShowCards()
     {
-        UpgradeData[] picks = UpgradeCardSelector.Shuffle3(_player);
+        UpgradeData[] picks = UpgradeCardSelector.Shuffle3(GameManager.Instance.Player);
 
         for (int i = 0; i < _cards.Length; i++)
         {
@@ -71,7 +55,7 @@ public class LevelUpPanel : Singleton<LevelUpPanel>
             return;
         }
 
-        UpgradeService.Apply(data, _player);
+        UpgradeService.Apply(data, GameManager.Instance.Player);
         GameManager.Instance.ChangeState(GameState.Playing);
     }
 }

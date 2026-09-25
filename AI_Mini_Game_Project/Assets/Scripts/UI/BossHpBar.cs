@@ -26,20 +26,20 @@ public class BossHpBar : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnBossSpawned += HandleBossSpawned;
-
         if (_barRoot != null)
         {
             _barRoot.anchoredPosition = new Vector2(_barRoot.anchoredPosition.x, _hiddenY);
         }
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.OnBossSpawned -= HandleBossSpawned;
-        }
+        GameManager.OnBossSpawned += HandleBossSpawned;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnBossSpawned -= HandleBossSpawned;
     }
 
     private void HandleBossSpawned(IDamageable boss)
