@@ -95,6 +95,8 @@ public class Spear : IWeapon
 
     private void Fire(Transform target)
     {
+        SoundManager.Instance.PlayWeaponFire();
+
         Vector2 origin = _owner.position;
         Vector2 direction = ((Vector2)target.position - origin).normalized;
 

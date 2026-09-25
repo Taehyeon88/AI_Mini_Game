@@ -138,6 +138,8 @@ public class BossController : MonoBehaviour, IDamageable
 
     private void FireBolt()
     {
+        SoundManager.Instance.PlayBossFire();
+
         Vector2 origin = transform.position;
         Vector2 direction = ((Vector2)_player.transform.position - origin).normalized;
 

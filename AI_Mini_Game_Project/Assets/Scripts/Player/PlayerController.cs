@@ -200,12 +200,14 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         _currentHP = Mathf.Max(_currentHP - amount, 0);
         _invincibleUntil = Time.time + _invincibilityDuration;
+        SoundManager.Instance.PlayPlayerHit();
 
         if (_hitFlashCoroutine != null)
         {
             StopCoroutine(_hitFlashCoroutine);
         }
         _hitFlashCoroutine = StartCoroutine(HitFlashRoutine());
+        CameraShakeManager.Instance.ShakeOnHit();
 
         if (!IsAlive)
         {

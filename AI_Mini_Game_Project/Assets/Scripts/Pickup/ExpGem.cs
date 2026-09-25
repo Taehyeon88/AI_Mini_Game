@@ -46,6 +46,7 @@ public class ExpGem : MonoBehaviour, IPickup
         }
 
         _isReleased = true;
+        SoundManager.Instance.PlayPickup();
         player.AddExp(_expAmount);
         _pool.Release(this);
     }
